@@ -58,6 +58,11 @@ defmodule Shodan do
         "#{acc}&#{key}=#{value}"
       end)
 
-    "#{api_url}/#{path}?key=#{api_key}#{query_params_string}"
+    # Support both format, with and without /
+    if String.slice(path, 0..0) == "/" do
+      "#{api_url}#{path}?key=#{api_key}#{query_params_string}"
+    else
+      "#{api_url}/#{path}?key=#{api_key}#{query_params_string}"
+    end
   end
 end
